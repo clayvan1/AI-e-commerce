@@ -1,0 +1,432 @@
+/* --- GLOBAL RESET (CRUCIAL FOR FULL-WIDTH ELEMENTS) --- */
+/* This MUST be at the very top of your CSS file or in a global reset stylesheet. */
+html, body {
+    margin: 0;
+    padding: 0;
+    /* Prevents a horizontal scrollbar that can appear with 100vw on some browsers */
+    overflow-x: hidden;
+}
+
+/* General Product Detail Page Layout */
+.product-detail-page-container {
+    max-width: 100vw; /* Ensures the page container can extend to full viewport width */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+/* Loading/Error Messages */
+.product-detail-message {
+    text-align: center;
+    padding: 50px 20px;
+    font-size: 1.2em;
+    color: #555;
+}
+.product-detail-error {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* --- Overall Grid for Product Content --- */
+/* This container will now allow its children (like the image section) to go full width */
+.product-content-grid {
+    display: flex;
+    flex-direction: column; /* Stacks sections vertically by default (mobile first) */
+    gap: 30px; /* Space between the image section and the content section below it */
+    padding-bottom: 50px; /* Keep bottom padding for overall page spacing */
+
+    /* IMPORTANT: Remove horizontal padding here so image can span full width */
+    padding-left: 0;
+    padding-right: 0;
+    /* No need for max-width: 100vw; or margin: 0 auto; here if html/body are reset */
+}
+
+/* --- Product Image Section (Always Full Width) --- */
+.product-image-carousel-section {
+    width: 100%; /* Takes full width of its parent (.product-content-grid), which now has 0 horizontal padding */
+    background: #f0f0f0;
+    /* Removed border-radius and box-shadow from here for a true edge-to-edge image. */
+    /* If you want these visual effects, consider applying them to the .main-product-image-wrapper instead, */
+    /* or ensure they don't break the edge-to-edge look if kept here. */
+    overflow: hidden; /* Crucial for containing the `object-fit: cover` image */
+    
+}
+
+.main-product-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full viewport height for image section on desktop, adjusted for mobile */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    /* You could add border-radius and box-shadow here if you want them around the image */
+    /* For example: border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); */
+}
+
+.main-product-image {
+    
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This makes the image cover the wrapper entirely, cropping if needed */
+    display: block;
+    /* Removes any extra space below the image caused by inline display */
+}
+
+/* Thumbnails overlaid on image */
+.product-thumbnails {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.thumbnail-box {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.thumbnail-box:hover {
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+.thumbnail-box.active {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    transform: scale(1.05);
+}
+.thumbnail-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- Product Details Content Area (Left and Right Columns) --- */
+/* This div will become a grid on desktop */
+.product-details-content-area {
+    display: flex;
+    flex-direction: column; /* Stacked by default for mobile */
+    gap: 30px; /* Gap between left and right columns on desktop, or stacked sections on mobile */
+    margin-top: 0px; /* No top margin here, handled by gap in .product-content-grid */
+    
+    /* IMPORTANT: Add horizontal padding here to indent the content below the image */
+    padding: 0 20px;
+}
+
+
+/* --- LEFT COLUMN: Description, Features, Other Dropdowns --- */
+.left-content-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between description, features, and other dropdowns */
+}
+
+/* Specific styling for the other dropdowns section if needed */
+.product-other-dropdowns-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between individual payment/commitment dropdowns */
+}
+
+
+/* --- RIGHT COLUMN: Price, Availability, Delivery Info, Add to Cart --- */
+.right-sticky-column-content {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    gap: 20px; /* Space between price/availability and delivery info */
+    /* Sticky behavior for desktop */
+    position: sticky;
+    top: 20px; /* Distance from top when sticky */
+    max-height: calc(100vh - 40px); /* Adjust as needed to fit viewport */
+    overflow-y: auto; /* Enable scrolling if content is too tall */
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* New Card for Price, Availability, Delivery, and Button */
+.order-details-card {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between items inside the card */
+    /* No border or shadow here, already on parent .right-sticky-column-content */
+}
+
+
+/* --- DESKTOP LAYOUT (min-width: 992px) --- */
+@media (min-width: 992px) {
+    .main-product-image-wrapper {
+        height: 100vh; /* Adjust as needed for desktop image height */
+    }
+
+    /* Set up the 2-column grid for the product details content */
+    .product-details-content-area {
+        display: grid;
+        grid-template-columns: 2fr 1fr; /* Left column wider, right column narrower */
+        gap: 50px; /* Larger gap between the two main columns on desktop */
+        align-items: start; /* Align items to the start of their grid cell */
+        max-width: 1200px; /* Constrain text content width for better readability on large screens */
+        margin: 0 auto; /* Center the text content below the image */
+        padding: 0 20px; /* Ensure content has side padding on desktop */
+    }
+
+    .left-content-column {
+        grid-column: 1 / 2; /* Place in the first grid column */
+    }
+
+    .right-sticky-column-content {
+        grid-column: 2 / 3; /* Place in the second grid column */
+    }
+
+    /* Hide mobile-only title and show desktop-only title */
+    .product-title--mobile-only { display: none; }
+    .product-title--desktop-only { display: block; }
+}
+
+/* --- MOBILE LAYOUT (max-width: 991px) --- */
+@media (max-width: 991px) {
+    .main-product-image-wrapper {
+        height: 60vh; /* Shorter image height for mobile */
+    }
+
+    /* Ensure these sections stack correctly on mobile within their columns */
+    .left-content-column,
+    .right-sticky-column-content {
+        padding: 0;
+        background: none;
+        box-shadow: none;
+        position: static; /* Remove sticky behavior on mobile */
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    /* Specific card styling for mobile to give visual separation */
+    .order-details-card {
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    /* Order of elements on mobile within the overall product-details-content-area */
+    .left-content-column {
+        order: 2; /* Description, features, other dropdowns after price/cart */
+    }
+
+    .right-sticky-column-content {
+        order: 1; /* Price, delivery, add to cart first */
+    }
+
+    /* Hide desktop-only title and show mobile-only title */
+    .product-title--desktop-only { display: none; }
+    .product-title--mobile-only { display: block; }
+}
+
+
+/* --- Common Element Styles --- */
+
+/* Product Title (General) */
+.product-title--desktop-only, .product-title--mobile-only {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Product Description */
+.product-description h2 {
+    font-size: 1.4em;
+    color: #555;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+.product-description p {
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Price & Availability */
+.product-price {
+    font-size: 2.2em;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.product-availability {
+    font-size: 1.1em;
+    color: #444;
+    margin-bottom: 0;
+}
+.product-availability .in-stock {
+    color: #28a745;
+    font-weight: bold;
+}
+.product-availability .out-of-stock {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Add to Cart Button Styling */
+.add-to-cart-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 30px;
+    font-size: 1.4em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%; /* Take full width of its container */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+}
+.add-to-cart-btn:hover:not(:disabled) {
+    background-color: #e64a19;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 87, 34, 0.6);
+}
+.add-to-cart-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Dropdown Container Styles (General) */
+.product-features-dropdown,
+.payment-details-dropdown,
+.our-commitments-dropdown {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #333;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-toggle:hover {
+    background-color: #eaeaea;
+}
+
+.dropdown-arrow {
+    font-size: 0.8em;
+    transition: transform 0.2s ease;
+}
+
+.features-list,
+.payment-info-content,
+.commitments-content {
+    list-style: none;
+    padding: 15px 20px;
+    margin: 0;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    font-size: 1em;
+    line-height: 1.6;
+    color: #555;
+}
+
+.features-list li,
+.payment-info-content li,
+.commitments-content li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 1.2em;
+    color: #007bff;
+    flex-shrink: 0;
+}
+
+/* Delivery Information */
+.delivery-info {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.delivery-info h3 {
+    font-size: 1.4em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.delivery-info p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .main-product-image-wrapper {
+        height: 80vh; /* Even shorter for smaller tablets/large phones */
+    }
+    .thumbnail-box {
+        width: 50px;
+        height: 50px;
+    }
+}
+@media (max-width: 480px) {
+    .main-product-image-wrapper {
+        height: 80vh; /* Adjust as needed for very small screens */
+    }
+    .thumbnail-box {
+        width: 40px;
+        height: 40px;
+    }
+    .add-to-cart-btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+    
+    .product-title--mobile-only {
+        font-size: 1.8em;
+    }
+    .product-price {
+        font-size: 1.6em;
+    }
+}

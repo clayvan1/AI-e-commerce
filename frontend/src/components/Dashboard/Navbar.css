@@ -1,0 +1,218 @@
+/* src/components/Dashboard/Navbar.css */
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  
+  
+  
+  position: relative;
+  background-color: black;
+  width: 100vw;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nav-button {
+  position: relative;
+  font-size: 1.25rem;
+  border-radius: 9999px;
+  padding: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nav-button:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-button-dot {
+  position: absolute;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 9999px;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.profile-container:hover {
+  background-color: #f0f0f0;
+}
+
+.profile-avatar {
+  border-radius: 9999px;
+  width: 2rem;
+  height: 2rem;
+}
+
+.profile-hi {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.profile-name {
+  color: #9ca3af;
+  font-weight: bold;
+  font-size: 0.875rem;
+  margin-left: 0.25rem;
+}
+
+.profile-arrow {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+/* Dropdown container */
+
+/* Notification Dropdown Container - Translucent with blur */
+.nav-item {
+  position: absolute;
+  top: 3.5rem; /* Just below navbar */
+  right: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.85); /* translucent white */
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 1rem 1.5rem;
+  width: 24rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  border: 1px solid rgba(200, 200, 200, 0.3);
+}
+
+/* Dark mode translucent */
+.dark .nav-item {
+  background-color: rgba(44, 47, 55, 0.75);
+  border: 1px solid rgba(100, 100, 100, 0.4);
+  color: #eee;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+.nav-item .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.nav-item .header p {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: inherit;
+}
+
+.nav-item .header button {
+  background-color: #ff7f50; /* orange-theme */
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-item .header button:hover {
+  background-color: #ff6333;
+}
+
+.nav-item .notification-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(200, 200, 200, 0.3);
+}
+
+.dark .nav-item .notification-item {
+  border-color: rgba(100, 100, 100, 0.4);
+}
+
+.nav-item .notification-item:last-child {
+  border-bottom: none;
+}
+
+.nav-item .notification-item img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.nav-item .notification-item div {
+  flex-grow: 1;
+  color: inherit;
+}
+
+.nav-item .notification-item div p:first-child {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+  color: inherit;
+}
+
+.nav-item .notification-item div p:last-child {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0.2rem 0 0;
+}
+
+.dark .nav-item .notification-item div p:last-child {
+  color: #aaa;
+}
+
+.nav-item .footer-btn {
+  margin-top: 1rem;
+  width: 100%;
+  background-color: var(--currentColor, #03c9d7);
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-item .footer-btn:hover {
+  background-color: #029eb8;
+}
+.nav-item {
+  width: clamp(280px, 90vw, 384px);
+  max-width: 95vw;
+  right: 0.75rem;
+}
+
+@media (max-width: 480px) {
+  .nav-item {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-height: 500px) {
+  .nav-item {
+    max-height: 70vh;
+  }
+}

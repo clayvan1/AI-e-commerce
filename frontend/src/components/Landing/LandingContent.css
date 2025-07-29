@@ -1,0 +1,112 @@
+/* src/components/LandingContent.css */
+.landing-overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  position: fixed;
+  z-index: 10;
+}
+
+.hero {
+  text-align: center;
+  pointer-events: auto;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 0;
+  letter-spacing: -1px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin: 1rem 0;
+}
+
+.cta {
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  background: #ffffff10;
+  border: 1px solid white;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+  pointer-events: auto;
+}
+
+.cta:hover {
+  background: white;
+  color: black;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  pointer-events: auto;
+}
+
+.feature {
+  flex: 1 1 30%;
+  margin: 1rem;
+  text-align: center;
+}
+/* --- Media Queries for Responsiveness --- */
+
+/* For tablets and smaller desktops (max-width: 768px) */
+@media (max-width: 768px) {
+  .landing-overlay {
+    padding: 3rem 1.5rem; /* Reduce padding for smaller screens */
+  }
+
+  .title {
+    font-size: 2.5rem; /* Decrease title font size */
+  }
+
+  .subtitle {
+    font-size: 1.1rem; /* Decrease subtitle font size */
+  }
+
+  .features {
+    flex-direction: column; /* Stack features vertically */
+    align-items: center;
+  }
+
+  .feature {
+    flex-basis: 80%; /* Allow features to take more width before stacking */
+    margin: 1rem 0;
+  }
+}
+/* For mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+  .landing-overlay {
+    padding: 2rem 1rem; /* Further reduce padding for mobile */
+    /* REMOVED: justify-content: center; */ 
+  }
+
+  .title {
+    font-size: 2rem; /* Make title font size smaller for mobile */
+  }
+
+  .subtitle {
+    font-size: 1rem; /* Adjust subtitle font size */
+  }
+
+  .cta {
+    padding: 0.7rem 1.8rem; /* Adjust button padding */
+  }
+
+  .features {
+    display: none; /* Optionally hide features on very small screens to simplify the view */
+  }
+}

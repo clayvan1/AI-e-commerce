@@ -1,0 +1,181 @@
+/* Container that holds everything */
+.login-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: hidden;
+  
+}
+
+/* Animated DotGrid behind everything */
+.dotgrid-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+/* Main login page content on top */
+.login-page {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+/* Falling text at top center */
+.falling-text-top {
+  height: 110px;
+  width: 80%;
+  pointer-events: none;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1rem;
+}
+
+/* Login card form */
+.login-card {
+  position: relative;
+  padding: 3rem 2.5rem;
+  border-radius: 54px;
+    background: rgba(255, 255, 255, 0.04);      /* translucent */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);   /* optional edge */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  max-width: 450px;
+  width: 100%;
+  color: #fff;
+  z-index: 2;
+}
+
+.login-card h1 {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
+}
+
+.login-card p {
+  color: #ccc;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.login-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+
+
+
+.forgot-password,
+.signup-link {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+.forgot-password a,
+.signup-link a {
+  color: #7aa8ff;
+  text-decoration: none;
+}
+
+.forgot-password a:hover,
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Highlighted words in FallingText */
+
+.word {
+  color: white; /* 🎯 Set default color for non-highlighted words */
+  font-weight: normal;
+  transition: color 0.3s ease;
+}
+.highlighted {
+  color: #00f0ff;  /* Example cyan color */
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  
+
+  .login-page {
+    height: auto;
+    justify-content: flex-start;
+    padding-top: 2rem;
+  }
+
+  .login-card {
+    padding: 2rem 1.25rem;
+    max-width: 60%;
+    border-radius: 24px;
+  }
+
+  .login-card h1 {
+    font-size: 1.6rem;
+  }
+
+  .login-card p {
+    font-size: 0.95rem;
+  }
+
+   .login-card {
+    padding: 2rem 1rem;
+    max-width: 80%;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+
+  .forgot-password,
+  .signup-link {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 2rem 1rem;
+    max-width: 80%;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .login-card h1 {
+    font-size: 0.5rem;
+  }
+
+ 
+  
+
+  .forgot-password,
+  .signup-link {
+    font-size: 0.75rem;
+  }
+}

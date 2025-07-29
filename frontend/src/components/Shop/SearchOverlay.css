@@ -1,0 +1,113 @@
+/* SearchOverlay.css */
+
+/* Styles for the full-screen overlay itself */
+.search-overlay {
+    position: fixed; /* Fixed position relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%; /* Takes full width of the viewport */
+    height: 100%; /* Takes full height of the viewport */
+    background-color: rgba(0, 0, 0, 0.9); /* Dark, semi-transparent background */
+    display: flex; /* Use flexbox for positioning content */
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* <<-- CHANGED: Align content to the top (flex-start) */
+    z-index: 10000; /* Extremely high z-index to ensure it's on top of everything */
+    padding: 20px; /* Padding around the content */
+    padding-top: 50px; /* <<-- ADDED: Push content down from the very top edge of the screen */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+/* Styles for the content container within the overlay (the actual search panel) */
+.search-overlay-content {
+    width: 100%; /* Takes full width of its parent (search-overlay) */
+    max-width: 600px; /* Limits the maximum width for better readability on large screens */
+    background-color: #222; /* Slightly lighter dark background for contrast */
+    padding: 30px; /* Padding inside the content box */
+    border-radius: 8px; /* Rounded corners for a softer look */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Soft shadow for depth */
+    position: relative; /* Needed for absolute positioning of the close button */
+    display: flex; /* Flexbox for internal layout */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally within the column */
+    /* No change needed here for vertical alignment, as the parent handles it */
+}
+
+/* Styles for the close button (FaTimes icon) */
+.close-search-overlay {
+    position: absolute; /* Positioned absolutely within search-overlay-content */
+    top: 15px; /* Distance from the top */
+    right: 20px; /* Distance from the right */
+    font-size: 1.8rem; /* Large icon size */
+    color: white; /* White color for visibility on dark background */
+    cursor: pointer; /* Indicates it's clickable */
+    z-index: 10; /* Ensures it's above other content in the overlay */
+}
+
+.close-search-overlay:hover {
+    color: #ff6347; /* Changes color on hover for feedback */
+}
+
+/* Wrapper for the search input and its icon */
+.search-input-wrapper {
+    display: flex; /* Flexbox for icon and input alignment */
+    align-items: center; /* Vertically align items */
+    width: 100%; /* Takes full width of its parent */
+    margin-bottom: 20px; /* Space below the input area */
+    border-bottom: 2px solid #555; /* Underline effect for the input */
+    padding-bottom: 5px; /* Space between input and underline */
+}
+
+/* Styles for the search icon within the overlay */
+.search-overlay-icon {
+    font-size: 1.5rem; /* Icon size */
+    color: white; /* White color */
+    margin-right: 10px; /* Space between icon and input */
+}
+
+/* Styles for the search input field */
+.search-overlay-input {
+    flex-grow: 1; /* Allows the input to take up available space */
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    outline: none; /* No outline on focus */
+    font-size: 1.5rem; /* Large font size for easy typing */
+    color: white; /* White text color */
+    padding: 5px 0; /* Vertical padding */
+    caret-color: #007bff; /* Custom color for the text cursor */
+}
+
+/* Placeholder text color for the input */
+.search-overlay-input::placeholder {
+    color: #aaa; /* Lighter gray for placeholder */
+}
+
+/* Styles for the search suggestions area */
+.search-suggestions {
+    width: 100%; /* Takes full width */
+    color: #bbb; /* Light gray text color */
+    font-size: 1rem; /* Standard font size */
+    text-align: center; /* Center align text */
+    margin-top: 10px; /* Space above suggestions */
+}
+
+.search-suggestions p {
+    margin-bottom: 5px; /* Small margin between suggestion paragraphs */
+}
+
+/* These styles are from your NavBar.css and are included here for context,
+   but they primarily affect the icon in the main navbar, not the overlay. */
+.navbar-content .search-icon {
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: white;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.navbar-content .search-icon:hover {
+    color: lightgray;
+}
+
+.navbar-content .search-container .search-input {
+    display: none;
+}

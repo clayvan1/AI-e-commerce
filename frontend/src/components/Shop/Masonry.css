@@ -1,0 +1,218 @@
+/*
+ * Masonry.css
+ * Styles for the Masonry image grid and product cards in a shop display layout.
+ */
+
+/* Main container for the Masonry grid */
+.list {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-height: 100vh;
+  display: block;
+   width: 100vw;
+}
+
+/* Wrapper for each individual product card in the Masonry grid */
+.item-wrapper {
+  position: absolute;
+  overflow: hidden; /* CRITICAL: Ensures anything outside this is clipped */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* This is what you might be seeing if there's a gap */
+  will-change: transform, opacity, filter;
+  transition: box-shadow 0.2s ease-out;
+  cursor: pointer;
+  /* Ensure no unexpected padding/border */
+  padding: 0;
+  border: none;
+}
+
+/* Optional: Subtle hover effect for the entire product card */
+.item-wrapper:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Container for the product image - should cover the entire wrapper but allow details to overlap */
+.item-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Make it cover the entire item-wrapper */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px; /* Apply border-radius here to round the image */
+
+  /* *** ADD THESE LINES FOR DIAGNOSIS/FIX *** */
+  line-height: 0; /* Important for images if they were img tags, less so for background-image but good practice */
+  font-size: 0; /* Important for images if they were img tags */
+  vertical-align: top; /* Important for images if they were img tags */
+  border: none; /* Explicitly remove any border */
+  outline: none; /* Explicitly remove any outline */
+  background-color: transparent; /* Ensure no background color if the image doesn't fully load */
+}
+
+/* If you're using an <img> tag INSIDE .item-image-container (which you're not based on the JSX, but for completeness): */
+/* .item-image-container img {
+    display: block; /* Removes common browser whitespace below images */
+    /* width: 100%; */
+    /* height: 100%; */
+    /* object-fit: cover; */
+    /* border-radius: 8px; */
+    /* border: none; */
+    /* outline: none; */
+/* } */
+
+
+/* Color overlay for hover effect (GSAP animates its opacity) */
+.color-overlay {
+  border-radius: 8px; /* Match item-image-container */
+  /* Ensure it precisely covers the image container */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Section for product details (title, description, price, button) - now an overlay */
+.item-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  text-align: center;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Styling for the product title */
+.item-title {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Styling for the product description */
+.item-description {
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+/* Styling for the product price */
+.item-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffcc00;
+  margin-bottom: 15px;
+}
+
+/* Styling for the "Shop Now" button */
+.shop-btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  color: #fff;
+  background-color: #ff4081;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+  cursor: pointer;
+  align-self: center;
+  margin-top: auto;
+  z-index: 2;
+}
+
+/* Hover effect for the "Shop Now" button */
+.shop-btn:hover {
+  background-color: #e73370;
+  transform: translateY(-2px);
+}
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 768px) {
+  .list {
+    padding: 15px;
+  }
+  .item-details {
+    padding: 10px;
+  }
+  .item-title {
+    font-size: 1.1rem;
+  }
+  .item-description {
+    font-size: 0.85rem;
+  }
+  .item-price {
+    font-size: 1.1rem;
+  }
+  .shop-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 488px) {
+  .list {
+    padding: 5px;
+  }
+  .item-details {
+    
+     padding: 15px;
+  }
+  .item-title {
+    font-size: 1rem;
+  }
+  .item-description {
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+  }
+  .item-price {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  .shop-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+.offer-ribbon {
+  position: absolute;
+  top: 8px;
+   left: -35px;
+  background: red;
+  color: white;
+  padding: 20px 28px;
+  font-size: 12px;
+  font-weight: bold;
+  transform: rotate(-45deg);
+  z-index: 2;
+  border-radius: 4px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  margin-left: 8px;
+  font-size: 0.9em;
+}

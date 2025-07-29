@@ -1,0 +1,344 @@
+.shopkeeper-orders {
+  padding: 1.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.shopkeeper-orders h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.shopkeeper-orders table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.shopkeeper-orders th,
+.shopkeeper-orders td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.shopkeeper-orders thead {
+  background-color: #f5f5f5;
+  color: #555;
+}
+
+.shopkeeper-orders tbody tr:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.shopkeeper-orders .expanded-row {
+  background-color: #fefefe;
+}
+
+.shopkeeper-orders .expanded-row table {
+  background-color: #f9f9f9;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.shopkeeper-orders .expanded-row th,
+.shopkeeper-orders .expanded-row td {
+  font-size: 13px;
+  padding: 8px 10px;
+}
+
+.shopkeeper-orders .address {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.status {
+  font-weight: 600;
+}
+
+.status-pending {
+  color: #d97706; /* amber-600 */
+}
+
+.status-delivered {
+  color: #16a34a; /* green-600 */
+}
+
+.status-shipped {
+  color: #3b82f6; /* blue-500 */
+}
+
+.shopkeeper-orders button {
+  font-size: 12px;
+  padding: 6px 10px;
+  margin-right: 6px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.shopkeeper-orders .btn-ship {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+.shopkeeper-orders .btn-ship:hover {
+  background-color: #2563eb;
+}
+
+.shopkeeper-orders .btn-delivered {
+  background-color: #16a34a;
+  color: #fff;
+}
+
+.shopkeeper-orders .btn-delivered:hover {
+  background-color: #15803d;
+}
+
+.shopkeeper-orders .btn-print {
+  background-color: #374151;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.shopkeeper-orders .btn-print:hover {
+  background-color: #1f2937;
+}
+.status-dropdown {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+  background-color: #f0f9ff;
+  font-size: 13px;
+  color: #1e40af;
+}
+.expanded-content td {
+  background-color: #e6f4ea;
+  color: #2f4f4f;
+  border-left: 4px solid #4caf50;
+}
+
+.print-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.print-button:hover {
+  background-color: #388e3c;
+}
+.search-box {
+  width: 50%;
+  padding: 8px 12px;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+.order-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-detail-card {
+  background: white;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  animation: zoomIn 0.3s ease-out;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.print-button {
+  margin-top: 20px;
+  background-color: #333;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.orders-nav-bar {
+  display: flex;
+
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.nav-btn {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  background-color: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.nav-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+.order-status-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.status-tab {
+  padding: 8px 16px;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.status-tab.active {
+  background-color: #333;
+  color: white;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  min-height: 3rem; /* keeps height consistent */
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: none;
+  background-color: #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #333;
+  color: white;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.orders-table-container {
+  min-height: 450px; /* adjust based on average table height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.fade-transition {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.pagination-bar {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.page-btn {
+  padding: 6px 12px;
+  border: none;
+  background: #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.page-btn.active {
+  background: #4a90e2;
+  color: white;
+  font-weight: bold;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.filter-bar button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.filter-bar button.active {
+  background: #4a90e2;
+  color: white;
+}
+@media (max-width: 768px) {
+  .shopkeeper-orders table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .shopkeeper-orders th,
+  .shopkeeper-orders td {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+@media (max-width: 600px) {
+  .order-detail-card {
+    padding: 1.2rem;
+    width: 95%;
+  }
+  .search-box { width: 80%;}
+
+  .close-btn {
+    font-size: 1.2rem;
+    top: 10px;
+    right: 12px;
+  }
+}

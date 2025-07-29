@@ -1,0 +1,92 @@
+.scroll-stack-scroller {
+  position: relative;
+  width: 100%;
+  height: 50%;
+  overflow-y: auto;
+  overflow-x: visible;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: scroll-position;
+}
+
+.scroll-stack-inner {
+  padding: 20vh 5rem 50rem;
+  min-height: 100vh;
+}
+
+.scroll-stack-card-wrapper {
+  position: relative;
+}
+
+.scroll-stack-card {
+  transform-origin: top center;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  height: 40rem;
+  width: 50%;
+  margin: 30px 0;
+  padding: 1rem;
+  border-radius: 40px;
+  box-sizing: border-box;
+  /* Improve mobile performance */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  position: relative;
+  
+}
+
+.scroll-stack-end {
+  width: 50%;
+  height: 1px;
+}
+.scroll-stack-scroller {
+  position: relative;
+  width: 100%;
+  height: 70vh; /* or your desired height */
+  overflow-y: scroll; /* Important: not auto */
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: scroll-position;
+
+  /* Hide scrollbar visually, but keep functionality */
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE 10+ */
+}
+
+.scroll-stack-scroller::-webkit-scrollbar {
+  display: none;                 /* Chrome, Safari, Edge */
+}
+@media (max-width: 768px) {
+    .scroll-stack-card {
+       width: 100%; /* Adjust height for smaller screens */
+    }
+    
+}
+.scroll-stack-inner {
+  padding: 20vh 5rem 50rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.scroll-stack-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 40px 0;
+  padding: 1.5rem;
+  border-radius: 40px;
+  background-color: white;
+}
+.scroll-stack-scroller {
+  height: 100vh;
+  overflow-y: scroll;
+}

@@ -1,0 +1,181 @@
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+}
+
+.carousel-item {
+  position: relative;
+  flex-shrink: 0;
+  background-color: #0D0716;
+  overflow: hidden;
+  cursor: grab;
+  height: 100%;
+  border-radius: 16px;
+}
+
+.carousel-item:active {
+  cursor: grabbing;
+}
+
+/* Image Wrapper */
+.carousel-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Ribbon */
+.carousel-ribbon {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: red;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Text Overlay */
+.carousel-text-overlay {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  z-index: 2;
+  color: white;
+  text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.7);
+  max-width: 80%;
+}
+
+.carousel-text-overlay h3 {
+  font-size: 40px;
+  margin-bottom: 4px;
+}
+
+.carousel-text-overlay p {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color:green;
+}
+
+/* Shop Now Button */
+.carousel-shop-button {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: white;
+  padding: 20px 36px;
+  font-size: 14px;
+  border: none;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.carousel-shop-button:hover {
+  background: #333;
+}
+
+/* Indicators */
+.carousel-indicators-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: absolute;
+  bottom: 2em;
+  left: 0;
+  z-index: 2;
+}
+
+.carousel-indicators {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-indicator {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #555;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.carousel-indicator.active {
+  background-color: #fff;
+  transform: scale(1.2);
+}
+@media (max-width: 1024px) {
+  .carousel-text-overlay h3 {
+    font-size: 32px;
+  }
+
+  .carousel-text-overlay p {
+    font-size: 16px;
+  }
+
+  .carousel-shop-button {
+    font-size: 13px;
+    padding: 16px 30px;
+    bottom: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-text-overlay {
+    bottom: 15%;
+    left: 8%;
+    max-width: 85%;
+  }
+
+  .carousel-text-overlay h3 {
+    font-size: 24px;
+  }
+
+  .carousel-text-overlay p {
+    font-size: 24px;
+  }
+
+  .carousel-shop-button {
+    font-size: 12px;
+    padding: 12px 24px;
+    bottom: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-text-overlay h3 {
+    font-size: 20px;
+  }
+
+  .carousel-text-overlay p {
+    font-size: 22px;
+  }
+
+  .carousel-shop-button {
+    font-size: 11px;
+    padding: 10px 20px;
+    bottom: 50px;
+  }
+}

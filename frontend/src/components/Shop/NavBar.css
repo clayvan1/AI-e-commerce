@@ -1,0 +1,236 @@
+/* Glassy Navbar */
+.navbar-wrapp {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 10001; /* Main navbar z-index */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+}
+
+/* Flex container for navbar */
+.navbar-content {
+    display: flex;
+    justify-content: space-between; /* Ensures left, center, right groups are spread */
+    align-items: center;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 1001; /* Ensure content is above wrapper's base z-index if any elements inside have negative margin */
+}
+
+/* Menu toggle icon (left side) */
+.nav-left-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    z-index: 1002; /* Give it a high z-index to ensure it's on top */
+}
+
+/* Center Logo */
+.nav-center .logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #333;
+    z-index: 1002; /* Ensure it's on top */
+}
+
+.planet-icon {
+    font-size: 1.3rem;
+}
+
+/* Right section (Search Icon + Cart Icons) */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 29px; /* This gap now controls spacing between search icon and cart-icon group */
+    padding-right: 1rem; /* Existing padding */
+    z-index: 1002; /* Ensure this entire group is on top */
+}
+
+/* Search icon wrapper (within .nav-right) */
+.search {
+    display: flex;
+    align-items: center;
+}
+
+/* Search icon */
+.search-ico {
+    color: #333; /* Changed to match other icons, as it's no longer on a dark background */
+    font-size: 1.4rem; /* Consistent size with cart-icon */
+    cursor: pointer;
+    padding: 5px; /* Added padding for better click area */
+    transition: color 0.2s ease;
+}
+
+.search-ico:hover {
+    color: #ff6600; /* Example hover color */
+}
+
+/* Hide the old search-container and search-input from the main navbar */
+.search-container,
+.search-input {
+    display: none;
+}
+
+/* Cart Icon */
+.cart-icon {
+    font-size: 1.4rem; /* Consistent size */
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    gap: 6px; /* Existing gap within cart-icon */
+    padding: 6px 10px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    align-items: center;
+    justify-content: center;
+}
+
+/* Sliding Side Menu */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 9999; /* Lower than navbar content */
+    padding: 60px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.menu-links {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.menu-links li {
+    margin-bottom: 20px;
+}
+
+.menu-links a {
+    font-size: 1.5rem;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.menu-links a:hover {
+    color: #ff6600;
+}
+
+/* Blur Overlay (for side menu) */
+.blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 998; /* Even lower than side-menu */
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* --- Media Queries --- */
+
+/* Tablet and below adjustments (<= 768px) */
+@media (max-width: 768px) {
+    .navbar-content {
+        flex-wrap: nowrap;
+    }
+
+    .nav-center .logo {
+        font-size: 1.2rem;
+    }
+
+    .nav-right {
+        gap: 10px;
+        padding-right: 0.5rem;
+    }
+
+    .cart-icon {
+        font-size: 1.2rem;
+    }
+
+    .nav-left-icon {
+        font-size: 1.4rem;
+    }
+
+    .planet-icon {
+        font-size: 1.1rem;
+    }
+
+    .side-menu {
+        width: 100vw;
+        padding: 50px 20px;
+    }
+
+    .blur-overlay {
+        left: 0;
+        width: 100vw;
+    }
+}
+
+/* Mobile specific (<= 600px) */
+@media (max-width: 600px) {
+    .nav-center .logo {
+        font-size: 1.1rem;
+    }
+
+    .cart-icon {
+        font-size: 1.1rem;
+        gap: 10px;
+    }
+}
+
+
+/* Desktop refinements (>= 769px) */
+@media (min-width: 769px) {
+    .nav-center .logo {
+        font-size: 1.4rem;
+    }
+
+    .side-menu {
+        width: 300px;
+        position: fixed;
+        left: 0;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .blur-overlay {
+        position: fixed;
+        top: 0;
+        left: 300px;
+        width: calc(100vw - 300px);
+        height: 100vh;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.1);
+        z-index: 1000;
+        transition: opacity 0.4s ease-in-out;
+    }
+}
+
+/* Common icon styles for hover effects */
+.nav-right .cart-icon,
+.search .search-ico {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
