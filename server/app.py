@@ -70,16 +70,12 @@ def create_app():
     # === Flask-RESTful API ===
     api = Api(app)
 
-    # === Start LiveKit listener when app starts ===
-    @app.before_first_request
-    def start_livekit():
-        LIVEKIT_ROOM_NAME = os.getenv("LIVEKIT_ROOM_NAME", "shopping-agent-room")
-        LIVEKIT_BRIDGE_IDENTITY = os.getenv("LIVEKIT_BRIDGE_IDENTITY", "flask-bridge")
-        start_livekit_listener_background(LIVEKIT_ROOM_NAME, LIVEKIT_BRIDGE_IDENTITY)
-
     return app
 
 # --- Create app instance ---
 app = create_app()
 
-# No __main__ block — Gunicorn will handle starting the app on Render
+# --- Start LiveKit listener outside Flask for Gunicorn ---
+LIVEKIT_ROOM_NAME = os.getenv("LIVEKIT_ROOM_NAME", "shopping-agent-room")
+LIVEKIT_BRIDGE_IDENTITY = os.getenv("LIVEKIT_BRIDGE_IDENTITY", "flask-bridge")
+start_livekit_listener_background(LIVEKIT_ROOM_NAME, LIVEKIT_BRIDGE_IDENTITY)
