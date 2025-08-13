@@ -1,4 +1,5 @@
 services:
+  # === Flask Backend ===
   - type: web
     name: flask-backend
     repo: https://github.com/clayvan1/AI-e-commerce
@@ -11,11 +12,22 @@ services:
         value: your-super-secret-key
       - key: DATABASE_URL
         value: your-render-postgres-url
+      - key: FLASK_ENV
+        value: production
+      - key: LIVEKIT_ROOM_NAME
+        value: shopping-agent-room
+      - key: LIVEKIT_BRIDGE_IDENTITY
+        value: flask-bridge
+      # Add any additional keys you need for LiveKit or other services
 
-  - type: web
+  # === React Frontend ===
+  - type: static
     name: react-frontend
     repo: https://github.com/clayvan1/AI-e-commerce
     branch: main
     rootDir: frontend
     buildCommand: npm install && npm run build
-    startCommand: npx serve -s build -l $PORT
+    publishDirectory: build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://flask-backend.onrender.com/api
