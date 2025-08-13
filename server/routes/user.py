@@ -66,7 +66,6 @@ def buyer_required(func):
         return func(*args, **kwargs)
     wrapper.__name__ = func.__name__
     return wrapper
-
 class UserRegisterResource(Resource):
     def post(self):
         data = request.get_json()
@@ -87,10 +86,14 @@ class UserRegisterResource(Resource):
         if User.find_by_email(data['email']):
             return {"error": "User with this email already exists"}, 409
 
-           
-        role = data.get('role', 'buyer')
-        if role not in ['buyer', 'superadmin']:
-         return {"error": "Invalid role specified."}, 403
+        # --- Determine role ---
+        first_user = User.query.count() == 0  # True if no users exist
+        if first_user:
+            role = 'superadmin'  # First user is automatically superadmin
+        else:
+            role = data.get('role', 'buyer')
+            if role not in ['buyer', 'shopkeeper', 'superadmin']:
+                return {"error": "Invalid role specified."}, 403
 
         try:
             new_user = User(
