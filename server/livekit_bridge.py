@@ -104,12 +104,5 @@ def _run_async_in_eventlet_background(coroutine, *args, **kwargs):
 
 
 def start_livekit_listener_background(room_name: str, participant_identity: str):
-    print("[LiveKit Bridge] Waiting 3 minutes before starting listener...")
-
-    def delayed_start():
-        import time
-        time.sleep(10)  # Wait 3 minutes
-        print("[LiveKit Bridge] 3 minutes passed — starting LiveKit listener.")
-        _run_async_in_eventlet_background(_connect_and_listen_livekit, room_name, participant_identity)
-
-    eventlet.spawn_n(delayed_start)
+    print("[LiveKit Bridge] Starting LiveKit listener immediately...")
+    _run_async_in_eventlet_background(_connect_and_listen_livekit, room_name, participant_identity)
