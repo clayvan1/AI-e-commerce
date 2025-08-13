@@ -17,10 +17,6 @@ services:
         value: your-render-postgres-url
       - key: FLASK_ENV
         value: production
-      - key: LIVEKIT_ROOM_NAME
-        value: shopping-agent-room
-      - key: LIVEKIT_BRIDGE_IDENTITY
-        value: flask-bridge
 
   # === LiveKit Agent Worker ===
   - type: worker
@@ -30,7 +26,7 @@ services:
     branch: main
     rootDir: server
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: python agent.py
+    startCommand: python agent.py dev
     autoDeploy: true
     plan: free
     envVars:
@@ -39,8 +35,6 @@ services:
       - key: LIVEKIT_ROOM_NAME
         value: shopping-agent-room
       - key: LIVEKIT_BRIDGE_IDENTITY
-        value: flask-bridge
-      - key: LIVEKIT_AGENT_ID
         value: flask-agent
 
   # === React Frontend ===

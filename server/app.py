@@ -1,4 +1,4 @@
-# app.py — Flask backend for AI E-commerce with LiveKit
+# app.py — Flask backend for AI E-commerce
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -18,10 +18,7 @@ from routes.Category import category_bp
 from routes.user import user_bp
 from routes.order import order_bp
 from routes.product import product_bp
-from routes.agent import agent_bp
-
-# --- Import LiveKit bridge ---
-from livekit_bridge import start_livekit_listener_background
+from routes.agent import agent_bp  # Keep this if needed for API routes
 
 # --- Import models ---
 from models.user.user import User
@@ -38,11 +35,10 @@ def create_app():
     # === Configuration ===
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "default-secret")
 
-    # Supabase/Postgres connection
+    # Database connection
     database_url = os.getenv("DATABASE_URL", "sqlite:///ecom.db")
     if database_url.startswith("postgres://"):
         database_url = database_url.replace("postgres://", "postgresql://", 1)
-
     if "supabase.co" in database_url:
         database_url += "?sslmode=require"
 
@@ -74,9 +70,3 @@ def create_app():
 
 # --- Create app instance ---
 app = create_app()
-
-# --- Start LiveKit listener outside Flask for Gunicorn ---
-LIVEKIT_ROOM_NAME = os.getenv("LIVEKIT_ROOM_NAME", "shopping-agent-room")
-LIVEKIT_BRIDGE_IDENTITY = os.getenv("LIVEKIT_BRIDGE_IDENTITY", "flask-bridge")
-start_livekit_listener_background(LIVEKIT_ROOM_NAME, LIVEKIT_BRIDGE_IDENTITY)
-
