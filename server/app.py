@@ -1,3 +1,4 @@
+# app.py — Flask backend for AI E-commerce with LiveKit
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -6,7 +7,7 @@ from flask_restful import Api
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env
+# Load environment variables
 load_dotenv()
 
 # --- Import extensions ---
@@ -37,14 +38,11 @@ def create_app():
     # === Configuration ===
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "default-secret")
 
-    # ✅ Supabase/Postgres database
+    # Supabase/Postgres connection
     database_url = os.getenv("DATABASE_URL", "sqlite:///ecom.db")
-
-    # Fix old postgres URI prefix if needed
     if database_url.startswith("postgres://"):
         database_url = database_url.replace("postgres://", "postgresql://", 1)
 
-    # Ensure SSL is enabled for Supabase connection
     if "supabase.co" in database_url:
         database_url += "?sslmode=require"
 
@@ -72,15 +70,16 @@ def create_app():
     # === Flask-RESTful API ===
     api = Api(app)
 
+    # === Start LiveKit listener when app starts ===
+    @app.before_first_request
+    def start_livekit():
+        LIVEKIT_ROOM_NAME = os.getenv("LIVEKIT_ROOM_NAME", "shopping-agent-room")
+        LIVEKIT_BRIDGE_IDENTITY = os.getenv("LIVEKIT_BRIDGE_IDENTITY", "flask-bridge")
+        start_livekit_listener_background(LIVEKIT_ROOM_NAME, LIVEKIT_BRIDGE_IDENTITY)
+
     return app
 
+# --- Create app instance ---
 app = create_app()
 
-if __name__ == "__main__":
-    # === LiveKit ===
-    LIVEKIT_ROOM_NAME = os.getenv("LIVEKIT_ROOM_NAME", "shopping-agent-room")
-    LIVEKIT_BRIDGE_IDENTITY = os.getenv("LIVEKIT_BRIDGE_IDENTITY", "flask-bridge")
-    start_livekit_listener_background(LIVEKIT_ROOM_NAME, LIVEKIT_BRIDGE_IDENTITY)
-
-    # Run locally
-    app.run(debug=True, host="0.0.0.0", port=int(os.getenv("PORT", 5555)))
+# No __main__ block — Gunicorn will handle starting the app on Render
