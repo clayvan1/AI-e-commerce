@@ -6,7 +6,7 @@ from flask_restful import Api
 from dotenv import load_dotenv
 import os
 
-# Load env vars for local dev
+# Load environment variables from .env
 load_dotenv()
 
 # --- Import extensions ---
@@ -37,11 +37,16 @@ def create_app():
     # === Configuration ===
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "default-secret")
 
-    # ✅ Use Render's DATABASE_URL if available
+    # ✅ Supabase/Postgres database
     database_url = os.getenv("DATABASE_URL", "sqlite:///ecom.db")
-    # Render Postgres fix: replace old URI prefix
+
+    # Fix old postgres URI prefix if needed
     if database_url.startswith("postgres://"):
         database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+    # Ensure SSL is enabled for Supabase connection
+    if "supabase.co" in database_url:
+        database_url += "?sslmode=require"
 
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -70,14 +75,12 @@ def create_app():
     return app
 
 app = create_app()
+
 if __name__ == "__main__":
-
-
     # === LiveKit ===
     LIVEKIT_ROOM_NAME = os.getenv("LIVEKIT_ROOM_NAME", "shopping-agent-room")
     LIVEKIT_BRIDGE_IDENTITY = os.getenv("LIVEKIT_BRIDGE_IDENTITY", "flask-bridge")
-
     start_livekit_listener_background(LIVEKIT_ROOM_NAME, LIVEKIT_BRIDGE_IDENTITY)
 
-    # Run locally (Render will use Gunicorn from render.yaml)
+    # Run locally
     app.run(debug=True, host="0.0.0.0", port=int(os.getenv("PORT", 5555)))
