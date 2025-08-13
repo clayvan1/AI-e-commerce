@@ -2,11 +2,14 @@ services:
   # === Flask Backend ===
   - type: web
     name: flask-backend
+    env: python
     repo: https://github.com/clayvan1/AI-e-commerce
     branch: main
-    rootDir: server
-    buildCommand: pip install -r requirements.txt
+    rootDir: server  # Path where app.py and requirements.txt live
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --timeout 120
+    autoDeploy: true
+    plan: free
     envVars:
       - key: SECRET_KEY
         value: your-super-secret-key
@@ -18,14 +21,13 @@ services:
         value: shopping-agent-room
       - key: LIVEKIT_BRIDGE_IDENTITY
         value: flask-bridge
-      # Add any additional keys you need for LiveKit or other services
 
   # === React Frontend ===
   - type: static
     name: react-frontend
     repo: https://github.com/clayvan1/AI-e-commerce
     branch: main
-    rootDir: frontend
+    rootDir: frontend  # Path where your React app lives
     buildCommand: npm install && npm run build
     publishDirectory: build
     envVars:

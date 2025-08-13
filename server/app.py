@@ -71,7 +71,7 @@ def create_app():
 
 app = create_app()
 if __name__ == "__main__":
-    app = create_app()
+
 
     # === LiveKit ===
     LIVEKIT_ROOM_NAME = os.getenv("LIVEKIT_ROOM_NAME", "shopping-agent-room")
