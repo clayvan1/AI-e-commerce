@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*.pyc
+__pycache__/
+.env
+.venv/
+
+# Node
+node_modules/
+build/
+dist/
+
+# Logs
+*.log

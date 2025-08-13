@@ -36,7 +36,7 @@
 }
 @media (max-width: 480px) {
   .pixel-card {
-    width: 250px;
+    width: 220px;
     height: auto;
     aspect-ratio: 1 / 1.25; /* Adjust aspect ratio for smaller screens */
   }

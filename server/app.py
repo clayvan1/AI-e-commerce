@@ -6,7 +6,7 @@ from flask_restful import Api
 from dotenv import load_dotenv
 import os
 
-# Load environment variables
+# Load env vars for local dev
 load_dotenv()
 
 # --- Import extensions ---
@@ -19,13 +19,10 @@ from routes.order import order_bp
 from routes.product import product_bp
 from routes.agent import agent_bp
 
-# --- Import Flask-RESTful resource ---
-from routes.Socket import SocketEventEmitResource
-
-# ✅ LiveKit bridge (without socketio)
+# --- Import LiveKit bridge ---
 from livekit_bridge import start_livekit_listener_background
 
-# --- Import models to register with SQLAlchemy ---
+# --- Import models ---
 from models.user.user import User
 from models.product.product import Product
 from models.product.Category import Category
@@ -39,9 +36,16 @@ def create_app():
 
     # === Configuration ===
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "default-secret")
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "sqlite:///ecom.db")
+
+    # ✅ Use Render's DATABASE_URL if available
+    database_url = os.getenv("DATABASE_URL", "sqlite:///ecom.db")
+    # Render Postgres fix: replace old URI prefix
+    if database_url.startswith("postgres://"):
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB limit
 
     # === Upload folder ===
     UPLOAD_FOLDER = os.path.join('static', 'uploads')
@@ -60,24 +64,20 @@ def create_app():
     app.register_blueprint(category_bp)
     app.register_blueprint(agent_bp, url_prefix='/api/agent')
 
-    # === Flask-RESTful API setup ===
+    # === Flask-RESTful API ===
     api = Api(app)
-    
 
     return app
 
+app = create_app()
 if __name__ == "__main__":
     app = create_app()
 
-    # === LiveKit config ===
+    # === LiveKit ===
     LIVEKIT_ROOM_NAME = os.getenv("LIVEKIT_ROOM_NAME", "shopping-agent-room")
     LIVEKIT_BRIDGE_IDENTITY = os.getenv("LIVEKIT_BRIDGE_IDENTITY", "flask-bridge")
 
-    # === Start LiveKit bridge listener (after delay)
     start_livekit_listener_background(LIVEKIT_ROOM_NAME, LIVEKIT_BRIDGE_IDENTITY)
 
-    # ✅ Run Flask app
-    try:
-        app.run(debug=True, host="0.0.0.0", port=5555)
-    finally:
-        print("Flask app shutdown — clean up if needed.")
+    # Run locally (Render will use Gunicorn from render.yaml)
+    app.run(debug=True, host="0.0.0.0", port=int(os.getenv("PORT", 5555)))

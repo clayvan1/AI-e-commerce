@@ -372,18 +372,12 @@ h2{
   .trending-grid {
     display: flex;
     overflow-x: auto;
-    gap: 5px;
+     gap: 1rem;
     
     scroll-snap-type: x mandatory;
     
   }
 
-  .trending-grid .offer-card {
-    flex: 0 0 auto;
-    width: 240px;
-    scroll-snap-align: start;
-    justify-content: space-around;
-  }
   
 }
 @media (max-width: 768px) {
@@ -655,7 +649,7 @@ h2{
   .trending-grid {
     display: flex;
     overflow-x: auto;
-    gap: 5rem;
+     gap: 1rem;
     
     scroll-snap-type: x mandatory;
     
@@ -684,4 +678,39 @@ h2{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+@media (max-width: 480px) {
+  .offer-card {
+    width: 220px; /* Reduced from 300px */
+     /* Optional: adjust height if needed */
+  }
+
+  .offer-card .pixel-card {
+    height: 300px; /* Match the height or adjust further */
+  }
+
+  .offer-content {
+    padding: 1rem; /* Reduce padding on small screens */
+  }
+
+  .offer-content h3 {
+    font-size: 1rem;
+  }
+
+  .offer-content p {
+    font-size: 0.85rem;
+  }
+
+  .current-price {
+    font-size: 1.1rem;
+  }
+
+  .old-price {
+    font-size: 0.8rem;
+  }
+
+  .shop-now-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
 }

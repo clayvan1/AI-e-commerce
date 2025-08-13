@@ -43,11 +43,12 @@ const OfferSection = () => {
           className="custom-scroll-text"
         />
       </div>
-
-      <div className="horizontal-scroll-container">
-        <div className='see-more'>
+      <div className='see-more'>
           <Link to="/offera" className="see-more">See More</Link>
         </div>
+
+      <div className="horizontal-scroll-container">
+        
 
         <div className="offer-cards-wrapper">
           {offers.map((item, index) => {

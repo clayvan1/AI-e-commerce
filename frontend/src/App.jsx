@@ -1,19 +1,21 @@
-// src/AppRoutes.jsx
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+
+// --- Layout & Nav Imports ---
+import Nav from './components/Shop/Nav'; // Your main navbar
+import SuperadminLayout from './Layouts/SuperadminLayout';
+import ShopkeeperLayout from './Layouts/shopkeeperlayout';
+
+// --- Page & Component Imports ---
 import LoginPage from './pages/Auth/Login';
 import SignUpPage from './pages/Auth/Signup';
 import LandingContent from './components/Landing/LandingContent';
 import FluidGlass from './components/FluidGlass/FluidGlass';
 import ProtectedRoute from './components/AuthForm/ProtectedRoute';
-import LiveKitNavigation from "./agent/Agentnav";
-import AgentFloatingOrb from './agent/agent.jsx'; // Orb component
-// Superadmin
-import SuperadminLayout from './Layouts/SuperadminLayout';
+import AgentFloatingOrb from './agent/agent.jsx';
 import SuperadminDashboard from './pages/Dashboard/SuperadminDashboard';
 import InventoryManagement from './pages/Dashboard/InventoryManagement';
 import UserManagement from './pages/Dashboard/UserManagement';
-// Shopkeeper
-import ShopkeeperLayout from './Layouts/shopkeeperlayout';
 import ShopkeeperDashboard from './pages/Dashboard/ShopkeeperDashboard';
 import ShopkeeperOrders from './pages/Dashboard/order';
 import ShopkeeperInventory from './pages/Dashboard/ShopKeeperInventory';
@@ -28,11 +30,32 @@ import NewArrivalsPage from './components/Shop/Newa.jsx';
 import OffersSeeMore from './components/Shop/OfferA.jsx';
 import TrendingSeeMore from './components/Shop/TrendingA.jsx';
 
-export default function AppRoutes() {
+// ===================================================================
+// 1. The Main Layout Component
+// This component renders the shared navbar and an <Outlet />.
+// The <Outlet /> is a placeholder where your page content will be displayed.
+// ===================================================================
+const MainLayout = () => {
+  return (
+    <>
+      <Nav />
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
+};
+
+
+// ===================================================================
+// 2. Your Main App Component
+// This defines the entire routing structure for your application.
+// ===================================================================
+export default function App() {
   return (
     <>
       <Routes>
-        {/* === Public Routes === */}
+        {/* === Routes WITHOUT the main navbar === */}
         <Route
           path="/"
           element={
@@ -61,16 +84,21 @@ export default function AppRoutes() {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign" element={<SignUpPage />} />
-        <Route path="/Home" element={<HomePage />} />
-        <Route path="/Agent" element={<Agent />} />
-        <Route path="/category/:id" element={<Category />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/Newa" element={<NewArrivalsPage />} />
-        <Route path="/offera" element={<OffersSeeMore />} />
-        <Route path="/trendinga" element={<TrendingSeeMore />} />
-        <Route path="/products/:productId" element={<ProductDetails />} />
 
-        {/* === Superadmin Dashboard === */}
+        {/* === Main Shop Routes that USE the shared navbar === */}
+        {/* This parent route renders MainLayout, which contains your Nav component. */}
+        <Route element={<MainLayout />}>
+          <Route path="/Home" element={<HomePage />} />
+          <Route path="/category/:id" element={<Category />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/Newa" element={<NewArrivalsPage />} />
+          <Route path="/offera" element={<OffersSeeMore />} />
+          <Route path="/trendinga" element={<TrendingSeeMore />} />
+          <Route path="/products/:productId" element={<ProductDetails />} />
+          <Route path="/Agent" element={<Agent />} />
+        </Route>
+
+        {/* === Dashboard Routes (using their own separate layouts) === */}
         <Route
           path="/dashboard/superadmin"
           element={
@@ -85,7 +113,6 @@ export default function AppRoutes() {
           <Route path="Agent" element={<Agent />} />
         </Route>
 
-        {/* === Shopkeeper Dashboard === */}
         <Route
           path="/dashboard/shopkeeper"
           element={
@@ -102,11 +129,11 @@ export default function AppRoutes() {
           <Route path="Agent" element={<Agent />} />
         </Route>
 
-        {/* Catch-all */}
+        {/* Catch-all route to redirect */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
-      {/* Always-visible Orb */}
+      {/* This component is always visible, outside of the routing changes */}
       <AgentFloatingOrb />
     </>
   );

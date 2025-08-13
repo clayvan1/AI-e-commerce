@@ -5,7 +5,7 @@ import Masonry from '../../components/Shop/Masonry';
 import { getOfferProducts } from '../../services/superadmin/productService';
 import Navbar from './Nav';
 import './Category.css'; // optional if needed for styles
-
+import TrueFocus from './TrueFocus';
 const OffersSeeMore = () => {
   const [products, setProducts] = useState([]);
   const [sortOption, setSortOption] = useState('');
@@ -64,6 +64,14 @@ const OffersSeeMore = () => {
   return (
     <div className="offers-page">
       <Navbar />
+       <TrueFocus 
+        sentence="Hot Deals"
+        manualMode={false}
+        blurAmount={5}
+        borderColor="red"
+        animationDuration={4}
+        pauseBetweenAnimations={1}
+      />
 
       <div className="filter-bar">
         <label htmlFor="sort">Sort by:</label>

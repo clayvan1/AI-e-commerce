@@ -80,3 +80,14 @@ export const getNewArrivalProducts = async () => {
 export const getTrendingProducts = async () => {
   return await axios.get('/products/trending');
 };
+export const searchCategoriesAndProducts = async (query) => {
+  try {
+    const response = await axios.get('/categories/search', {
+      params: { query },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Search failed:', error);
+    throw error;
+  }
+};

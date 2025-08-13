@@ -2,7 +2,7 @@ import React from 'react';
 import './HomePage.css';
 import Navbar from '../components/Dashboard/Navbar';
 import InfiniteMenu from '../components/Shop/InfiniteMenu';
-import ScrambledText from '../components/Shop/ScrambledText';
+
 import BlurText from "../components/Shop/BlurText";
 import TrueFocus from '../components/Shop/TrueFocus';
 import PixelCard from '../components/Shop/ProductCard';

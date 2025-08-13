@@ -1,0 +1,24 @@
+# Ignore environment files
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# Pytest
+.pytest_cache/
+
+# VSCode
+.vscode/
+
+# MacOS & system files
+.DS_Store

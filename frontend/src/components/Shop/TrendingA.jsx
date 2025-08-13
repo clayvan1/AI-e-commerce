@@ -4,7 +4,7 @@ import Masonry from './Masonry';
 import { getTrendingProducts } from '../../services/superadmin/productService';
 import Navbar from './Nav';
 import './Category.css'; // Optional if styles are reused
-
+import TrueFocus from './TrueFocus';
 const TrendingSeeMore = () => {
   const [products, setProducts] = useState([]);
   const [sortOption, setSortOption] = useState('');
@@ -63,6 +63,16 @@ const TrendingSeeMore = () => {
   return (
     <div className="trending-page">
       <Navbar />
+  <TrueFocus 
+        sentence="Trending"
+        manualMode={false}
+        blurAmount={5}
+        borderColor="red"
+        animationDuration={4}
+        pauseBetweenAnimations={1}
+      />
+
+
 
       <div className="filter-bar">
         <label htmlFor="sort">Sort by:</label>

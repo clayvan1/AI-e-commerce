@@ -26,13 +26,15 @@ const AgentFloatingOrb = () => {
     const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
     const storedToken = localStorage.getItem('token');
 
+    const roomName = 'shopping-agent-room'; // ✅ Centralized room name
+
     const startAgent = async () => {
         setLoading(true);
         try {
             const response = await axios.post(`${backendUrl}/api/agent/start`, {
                 username: storedUser.username,
                 role: storedUser.role,
-                room: 'shopping-agent-room',
+                room: roomName,
                 metadata: JSON.stringify({ ...storedUser, userAuthToken: storedToken })
             }, {
                 headers: {
@@ -127,7 +129,7 @@ const AgentFloatingOrb = () => {
 
     return (
         <div className="agent-floating-container" onClick={handleClick}>
-            <AgentNavigationHandler room={roomRef.current} />
+            <AgentNavigationHandler room={roomRef.current} roomName={roomName} /> {/* 👈 If needed */}
             {showOrb && (
                 <div className="agent-panel">
                     {connected ? (

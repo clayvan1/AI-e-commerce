@@ -234,3 +234,153 @@
     transition: color 0.2s ease;
 }
 
+.sidebar-top-tabs {
+  display: flex;
+  justify-content: space-around;
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+.sidebar-top-tabs .tab {
+  flex: 1;
+  padding: 10px;
+  font-weight: bold;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar-top-tabs .tab:hover {
+  background-color: #e0e0e0;
+}
+
+.sidebar-top-tabs .active {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
+.sidebar-top-tabs {
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.sidebar-top-tabs .tab {
+  flex: 1;
+  padding: 12px 0;
+  font-weight: 500;
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: relative;
+  color: #555;
+  text-align: center;
+}
+
+.sidebar-top-tabs .tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  background-color: #007bff;
+  border-radius: 1px;
+}
+
+.sidebar-top-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 12px 0;
+  position: relative;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+
+.tab-container {
+  position: relative;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab-button:hover {
+  color: red;
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: #007bff;
+  border-radius: 1px;
+}
+
+.menu-links {
+  list-style: none;
+  padding: 24px 20px;
+  margin: 0;
+}
+
+.menu-links li {
+  padding: 14px 0;
+}
+
+.menu-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+  display: block;
+}
+
+.menu-links li a:hover {
+  color: #007bff;
+}
+
+/* Glassy Navbar - UPDATE THIS SECTION */
+.navbar-wrapp {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 10001;
+    
+    /* Initial state: Transparent */
+    background: transparent;
+    border-bottom: 1px solid transparent; /* Keep layout consistent */
+    
+    /* Smooth transition for background color and shadow */
+    transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out, border-color 0.4s ease-in-out;
+    
+    padding: 10px 20px;
+    
+    /* Remove backdrop-filter from initial state if you want it TRULY transparent */
+    /* backdrop-filter: blur(10px); */
+    /* -webkit-backdrop-filter: blur(10px); */
+}
+
+/* Scrolled state: White background with shadow */
+.navbar-wrapp.scrolled {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+
+/* --- The rest of your CSS remains the same --- */
+
+/* Flex container for navbar */

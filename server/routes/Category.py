@@ -90,9 +90,68 @@ class ProductsInCategory(Resource):
             "image_url": full_image_url(p.image_url)
         } for p in products], 200
 
+class FilteredCategoriesAndProducts(Resource):
+    def get(self):
+        query = request.args.get('query', '', type=str).strip().lower()
+        matched_categories = Category.query.filter(Category.name.ilike(f"%{query}%")).all()
+
+        # Get matching products (regardless of category match)
+        matching_products = Product.query.filter(
+            Product.name.ilike(f"%{query}%"),
+            Product.shop_keeper_id.isnot(None),
+            Product.is_published == True,
+            Product.quantity > 0
+        ).all()
+
+        # Group products by category_id
+        products_by_category = {}
+        for product in matching_products:
+            cid = product.category_id
+            if cid not in products_by_category:
+                products_by_category[cid] = []
+            products_by_category[cid].append({
+                **product.to_dict(),
+                "image_url": full_image_url(product.image_url)
+            })
+
+        # Build unique category list: from name match + from product match
+        category_ids = {cat.id for cat in matched_categories} | set(products_by_category.keys())
+        categories = Category.query.filter(Category.id.in_(category_ids)).all()
+
+        response = []
+        for cat in categories:
+            cat_data = {
+                "id": cat.id,
+                "name": cat.name,
+                "image_url": full_image_url(cat.image_url),
+                "products": products_by_category.get(cat.id, [])
+            }
+
+            # Also include products if the category itself matched the name
+            if cat.id in [c.id for c in matched_categories]:
+                additional_products = Product.query.filter(
+                    Product.category_id == cat.id,
+                    Product.shop_keeper_id.isnot(None),
+                    Product.is_published == True,
+                    Product.quantity > 0
+                ).all()
+
+                # Avoid duplication
+                existing_ids = {p["id"] for p in cat_data["products"]}
+                for p in additional_products:
+                    if p.id not in existing_ids:
+                        cat_data["products"].append({
+                            **p.to_dict(),
+                            "image_url": full_image_url(p.image_url)
+                        })
+
+            response.append(cat_data)
+
+        return response, 200
 
 
 # === Register routes ===
 api.add_resource(CategoryList, '/api/categories')
 api.add_resource(SingleCategory, '/api/categories/<int:id>')
 api.add_resource(ProductsInCategory, '/api/categories/<int:id>/products')
+api.add_resource(FilteredCategoriesAndProducts, '/api/categories/search')

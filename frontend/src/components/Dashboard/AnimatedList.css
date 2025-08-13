@@ -4,9 +4,9 @@
 }
 
 .scroll-list {
-  max-height: 300px;
+  max-height: 100%;
   overflow-y: auto;
-  padding: 16px;
+  padding: 10px;
 }
 
 .scroll-list::-webkit-scrollbar {
@@ -35,7 +35,7 @@
   padding: 16px;
   background-color: #170D27;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  
 }
 
 .item.selected {
@@ -71,7 +71,7 @@
 @media screen and (max-width: 768px) {
 .scroll-list-container {
   position: relative;
-  width: 100%;
+width: 300px;
 }
 
 }
@@ -79,6 +79,12 @@
 
   .scroll-list-container {
   position: relative;
-  width: 100%;
+  width:400px;
+  
 }
+}
+@media (max-width: 469px) {
+  .scroll-list-container{
+    width: 300px;
+  }
 }
