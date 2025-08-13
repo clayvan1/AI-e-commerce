@@ -1,4 +1,3 @@
-# app.py — Flask backend for AI E-commerce
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -7,7 +6,7 @@ from flask_restful import Api
 from dotenv import load_dotenv
 import os
 
-# Load environment variables
+# Load env vars for local dev
 load_dotenv()
 
 # --- Import extensions ---
@@ -18,7 +17,10 @@ from routes.Category import category_bp
 from routes.user import user_bp
 from routes.order import order_bp
 from routes.product import product_bp
-from routes.agent import agent_bp  # Keep this if needed for API routes
+from routes.agent import agent_bp
+
+# --- Import LiveKit bridge ---
+from livekit_bridge import start_livekit_listener_background
 
 # --- Import models ---
 from models.user.user import User
@@ -35,17 +37,20 @@ def create_app():
     # === Configuration ===
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "default-secret")
 
-    # Database connection
+    # ✅ Use Render's DATABASE_URL if available
     database_url = os.getenv("DATABASE_URL", "sqlite:///ecom.db")
+
+# Render Postgres fix: replace old URI prefix
     if database_url.startswith("postgres://"):
-        database_url = database_url.replace("postgres://", "postgresql://", 1)
-    if "supabase.co" in database_url:
+       database_url = database_url.replace("postgres://", "postgresql://", 1)
+
+# Ensure SSL is enabled for Supabase
+    if "supabase.co" in database_url and "?sslmode=" not in database_url:
         database_url += "?sslmode=require"
 
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB limit
-
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 
     # === Upload folder ===
     UPLOAD_FOLDER = os.path.join('static', 'uploads')
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -68,5 +73,15 @@ def create_app():
 
     return app
 
-# --- Create app instance ---
 app = create_app()
+if __name__ == "__main__":
+
+
+    # === LiveKit ===
+    LIVEKIT_ROOM_NAME = os.getenv("LIVEKIT_ROOM_NAME", "shopping-agent-room")
+    LIVEKIT_BRIDGE_IDENTITY = os.getenv("LIVEKIT_BRIDGE_IDENTITY", "flask-bridge")
+
+    start_livekit_listener_background(LIVEKIT_ROOM_NAME, LIVEKIT_BRIDGE_IDENTITY)
+
+    # Run locally (Render will use Gunicorn from render.yaml)
+    app.run(debug=True, host="0.0.0.0", port=int(os.getenv("PORT", 5555)))
